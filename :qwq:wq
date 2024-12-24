@@ -1,0 +1,94 @@
+Initial commit
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   .editorconfig
+#	new file:   .gitignore
+#	new file:   .vscode/extensions.json
+#	new file:   README.md
+#	new file:   eslint.config.js
+#	new file:   index.html
+#	new file:   jsconfig.json
+#	new file:   package-lock.json
+#	new file:   package.json
+#	new file:   postcss.config.cjs
+#	new file:   public/favicon.ico
+#	new file:   src/App.vue
+#	new file:   src/assets/base.css
+#	new file:   src/assets/logo.svg
+#	new file:   src/assets/main.css
+#	new file:   src/components/InputForm.vue
+#	new file:   src/components/Results.vue
+#	new file:   src/components/icons/IconCommunity.vue
+#	new file:   src/components/icons/IconDocumentation.vue
+#	new file:   src/components/icons/IconEcosystem.vue
+#	new file:   src/components/icons/IconSupport.vue
+#	new file:   src/components/icons/IconTooling.vue
+#	new file:   src/main.js
+#	new file:   src/router/index.js
+#	new file:   src/stores/counter.js
+#	new file:   src/views/Calculator.vue
+#	new file:   src/views/Home.vue
+#	new file:   tailwind.config.js
+#	new file:   vite.config.js
+#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
