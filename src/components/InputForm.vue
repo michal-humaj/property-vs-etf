@@ -1,131 +1,77 @@
 <template>
-  <div class="space-y-8 bg-white p-6 rounded-lg shadow-md">
+  <div class="max-w-3xl mx-auto space-y-8 p-4">
+    <h1 class="text-2xl font-bold mb-8">Vstupní parametry</h1>
+
     <!-- Property Value -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">Hodnota nemovitosti</label>
-      <div class="flex items-center space-x-4">
-        <Slider
-          v-model="propertyValue"
-          :min="1000000"
-          :max="20000000"
-          :step="50000"
-          class="flex-1"
-        />
-        <input
-          type="number"
-          v-model="propertyValue"
-          class="border border-gray-300 rounded-lg p-2 w-32 text-center"
-        />
-      </div>
-    </div>
-
-    <!-- Own Resources and Mortgage -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">Vlastní zdroje a Výše hypotéky</label>
-      <div class="space-y-4">
-        <div class="flex items-center space-x-4">
-          <Slider
-            v-model="ownResources"
-            :min="0"
-            :max="propertyValue"
-            :step="50000"
-            class="flex-1"
-          />
-          <input
-            type="number"
-            v-model="ownResources"
-            class="border border-gray-300 rounded-lg p-2 w-32 text-center"
-          />
+    <div class="space-y-2">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <h2 class="font-semibold">Hodnota nemovitosti</h2>
+          <p class="text-gray-600">Za kolik nemovitost kupujete</p>
         </div>
-        <p class="text-gray-600">Výše hypotéky: {{ mortgageValue.toLocaleString() }} Kč</p>
+        <input
+          type="text"
+          v-model="propertyValue"
+          class="w-40 p-2 border rounded text-right"
+          placeholder="10 000 000 Kč"
+        />
+      </div>
+      <input type="range" class="w-full" min="1000000" max="20000000" v-model="propertyValue" />
+    </div>
+
+    <!-- Down Payment and Mortgage -->
+    <div class="space-y-2">
+      <div class="flex justify-between">
+        <span class="text-gray-600">Vlastní zdroje</span>
+        <span class="text-gray-600">Výše hypotéky</span>
+      </div>
+      <input type="range" class="w-full" v-model="downPaymentPercentage" />
+      <div class="flex justify-between">
+        <span>{{ downPayment }} Kč ({{ downPaymentPercentage }}%)</span>
+        <span>{{ mortgageAmount }} Kč ({{ 100 - downPaymentPercentage }}%)</span>
       </div>
     </div>
 
-    <!-- Mortgage RPSN -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">RPSN hypotéky</label>
-      <div class="flex items-center space-x-4">
-        <Slider
-          v-model="mortgageRate"
-          :min="0"
-          :max="10"
-          :step="0.1"
-          class="flex-1"
-        />
+    <!-- Mortgage Rate -->
+    <div class="space-y-2">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <h2 class="font-semibold">RPSN hypotéky</h2>
+          <p class="text-gray-600">Roční procentní sazba nákladů</p>
+        </div>
         <input
-          type="number"
+          type="text"
           v-model="mortgageRate"
-          class="border border-gray-300 rounded-lg p-2 w-20 text-center"
+          class="w-24 p-2 border rounded text-right"
+          placeholder="4 %"
         />
-        <span>%</span>
       </div>
+      <input type="range" class="w-full" min="1" max="10" step="0.1" v-model="mortgageRate" />
     </div>
 
     <!-- Monthly Rent -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">Nájemné (měsíčně)</label>
-      <div class="flex items-center space-x-4">
-        <Slider
+    <div class="space-y-2">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <h2 class="font-semibold">Nájemné (měsíčně)</h2>
+          <p class="text-gray-600">Za kolik nemovitost pronajmete</p>
+        </div>
+        <input
+          type="text"
           v-model="monthlyRent"
-          :min="5000"
-          :max="50000"
-          :step="100"
-          class="flex-1"
-        />
-        <input
-          type="number"
-          v-model="monthlyRent"
-          class="border border-gray-300 rounded-lg p-2 w-32 text-center"
+          class="w-32 p-2 border rounded text-right"
+          placeholder="12 000 Kč"
         />
       </div>
-    </div>
-
-    <!-- Property Appreciation -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">Zhodnocení nemovitosti (ročně)</label>
-      <div class="flex items-center space-x-4">
-        <Slider
-          v-model="propertyAppreciation"
-          :min="0"
-          :max="10"
-          :step="0.1"
-          class="flex-1"
-        />
-        <input
-          type="number"
-          v-model="propertyAppreciation"
-          class="border border-gray-300 rounded-lg p-2 w-20 text-center"
-        />
-        <span>%</span>
-      </div>
-    </div>
-
-    <!-- ETF Return -->
-    <div>
-      <label class="block text-lg font-semibold text-gray-700 mb-2">Výnos ETF (ročně)</label>
-      <div class="flex items-center space-x-4">
-        <Slider
-          v-model="etfReturn"
-          :min="0"
-          :max="15"
-          :step="0.1"
-          class="flex-1"
-        />
-        <input
-          type="number"
-          v-model="etfReturn"
-          class="border border-gray-300 rounded-lg p-2 w-20 text-center"
-        />
-        <span>%</span>
-      </div>
+      <input type="range" class="w-full" min="5000" max="50000" step="100" v-model="monthlyRent" />
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-end">
-      <button
-        class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600"
-        @click="scrollToResults"
-      >
+    <div class="flex justify-between gap-4 mt-8">
+      <button class="px-6 py-3 border rounded-lg hover:bg-gray-50">
+        Upřesnit další parametry
+      </button>
+      <button class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
         Zobrazit výsledky
       </button>
     </div>
@@ -133,23 +79,37 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import Slider from '@vueform/slider';
-import '@vueform/slider/themes/default.css';
+import { ref, computed } from 'vue'
 
-// Reactive data properties
-const propertyValue = ref(10000000);
-const ownResources = ref(2000000);
-const mortgageRate = ref(4);
-const monthlyRent = ref(12000);
-const propertyAppreciation = ref(4);
-const etfReturn = ref(8);
+const propertyValue = ref(10000000)
+const downPaymentPercentage = ref(20)
+const mortgageRate = ref(4)
+const monthlyRent = ref(12000)
 
-// Computed value for mortgage
-const mortgageValue = computed(() => propertyValue.value - ownResources.value);
-
-// Scroll to results section
-function scrollToResults() {
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-}
+const downPayment = computed(() => (propertyValue.value * downPaymentPercentage.value) / 100)
+const mortgageAmount = computed(() => propertyValue.value - downPayment.value)
 </script>
+
+<style scoped>
+input[type="range"] {
+  @apply h-2 rounded-lg appearance-none cursor-pointer;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply appearance-none w-6 h-6 bg-white rounded-full border-2 border-blue-500 cursor-pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.1);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2);
+}
+
+input[type="text"] {
+  @apply border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+}
+</style>
